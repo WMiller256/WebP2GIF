@@ -1,15 +1,27 @@
 # Name of program
-MAIN     = webp-gif
+MAIN     = webp2gif
 
 ABS      = ./
 BIN      = ~/bin
 BUILD    = ./build
 RM       = /bin/rm -f
 MV       = /bin/mv -f
-CFLAGS   = -I /usr/lib/boost -I /usr/local/lib/webp -Wno-deprecated-declarations -g -O3 `Magick++-config --cppflags --cxxflags` -std=c++17
+CFLAGS   = -isystem /usr/include/opencv4/ -I /usr/lib/boost -I /usr/local/lib/webp -Wno-deprecated-declarations -g -O3 `Magick++-config --cppflags --cxxflags` -std=c++17
 CC       = /usr/bin/c++ $(CFLAGS)
 
-LIBS     = -lboost_program_options -lwebp -lwebpdemux -lwebpmux `Magick++-config --libs` -lstdc++fs
+LIBS     = -lboost_program_options -lwebp -lwebpdemux -lwebpmux `Magick++-config --ldflags --libs` -lstdc++fs \
+           -lopencv_stitching -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired                  \
+           -lopencv_ccalib -lopencv_dnn_objdetect -lopencv_dpm -lopencv_face                       \
+           -lopencv_freetype -lopencv_fuzzy -lopencv_hdf -lopencv_hfs -lopencv_img_hash            \
+           -lopencv_line_descriptor -lopencv_quality -lopencv_reg -lopencv_rgbd -lopencv_saliency  \
+           -lopencv_stereo -lopencv_structured_light -lopencv_superres                             \
+           -lopencv_surface_matching -lopencv_tracking -lopencv_videostab                          \
+           -lopencv_xobjdetect -lopencv_xphoto -lopencv_shape -lopencv_datasets -lopencv_plot      \
+           -lopencv_text -lopencv_dnn -lopencv_highgui -lopencv_ml -lopencv_phase_unwrapping       \
+           -lopencv_optflow -lopencv_ximgproc -lopencv_video -lopencv_videoio -lopencv_imgcodecs   \
+           -lopencv_objdetect -lopencv_calib3d -lopencv_features2d -lopencv_flann -lopencv_photo   \
+           -lopencv_imgproc -lopencv_core -lavutil -lavcodec -lavformat -lavdevice -lavfilter      \
+           -lswscale -lncurses
 
 LFLAGS   = -Wl,-rpath,/usr/local/lib `Magick++-config --ldflags` -Wno-sign-compare
 LIBDIRS  = $(LFLAGS) -L/usr/local/lib -L/usr/lib/boost
@@ -25,7 +37,7 @@ YELLOW  = \033[33m
 RED     = \033[91m
 
 # Source files
-OBJS  = $(BUILD)/webp-gif.o
+OBJS  = $(BUILD)/webp2gif.o
 
 all:
 	@printf "[      $(YELLOW)Building $(MAIN)$(WHITE)       ]\n"

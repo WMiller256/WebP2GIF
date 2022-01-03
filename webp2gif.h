@@ -10,11 +10,13 @@
 
 #pragma once
 
+#include <cctype>
 #include <experimental/filesystem>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 #include <string>
+#include <thread>
 #include <valarray>
 #include <vector>
 
@@ -23,6 +25,13 @@
 
 // ImageMagick
 #include <Magick++.h>
+
+// OpenCV
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/features2d.hpp> 
 
 // WebP
 #include "webp/types.h"
@@ -41,6 +50,12 @@ typedef uint8_t uchar;
 
 std::vector<std::vector<uchar>> read(std::string filename, std::pair<int, int> &canvas, WebPAnimInfo &info);
 void write(fs::path path, std::vector<std::vector<uchar>> frames, std::pair<int, int> canvas);
+void read_write(std::string file, std::pair<int, int> &canvas, WebPAnimInfo &info);
+
+template <typename T>
+void split(const std::string &s, char delim, T result);
+double fps(const std::string &s);
+std::string exec(std::string command);
 
 void print_percent(int current, int total);
 
